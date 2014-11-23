@@ -1,0 +1,34 @@
+<:Title>
+  Strategy
+
+<:Body>
+<div class = "row">
+  <div class = "col-md-4">
+    <h1>{{ _items(:objective).size }} Quarterly Objectives</h1>
+
+    <form e-submit="add_item" role="form">
+      <div class="form-group">
+        <label>Objective</label>
+        <input class="form-control" type="text" value="{{ page._new_objective  }}" />
+      </div>
+    </form>
+
+      <table class="table">
+        {{ _items.each do |item| }}
+        <tr e-click="params._index = index" class="{{ if params._index.or(0).to_i == index }}selected{{ end }}">
+          <td><input type="checkbox" checked="{{ item._completed }}" /></td>
+          <td class="{{ if item._completed }}complete{{ end }}">{{ item._objective }}</td>
+          <td>{{ item._objective_desciption }}</td>
+          <td><button e-click="remove_item(item)">X</button></td>
+        </tr>
+        {{ end }}
+      </table>
+    </div>
+
+      <div class = "col-md-8">
+        {{ if current_item }}
+        <h2>{{ current_item._objective }}</h2>
+        <textarea placeholder="Objective description, automatically saves, always editable...">{{ current_item._objective_description }}</textarea>
+        {{ end }}
+      </div>
+    </div>
